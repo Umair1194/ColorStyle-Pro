@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ColorStyle Pro</title>
+<style>
+:root{font:13px/1.45 Inter,system-ui,sans-serif;color:#172033;background:#f7f8fb;--blue:#2563eb;--border:#d7dce5;--muted:#596579}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--border);border-radius:7px;background:white;color:#233149;padding:7px 10px;min-height:34px}button:hover:not(:disabled){background:#edf3ff}button:disabled{opacity:.5;cursor:default}input,select,textarea{border:1px solid var(--border);border-radius:7px;background:white;color:#172033;padding:7px;width:100%;min-width:0}input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);margin:0;flex-shrink:0}input[type=color]{width:34px;height:32px;padding:3px;flex-shrink:0}input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:0;border-radius:3px}input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}fieldset{border:0;margin:0;padding:0;min-width:0}h1{font-size:17px;margin:0}h2{font-size:15px;margin:0 0 12px}h3{font-size:13px;margin:12px 0 6px}p{margin:6px 0}.help{font-size:12px;color:var(--muted)}header{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid var(--border);padding:13px 16px 0}.brand{display:flex;justify-content:space-between;align-items:center}.brand small{color:var(--muted)}nav{display:flex;gap:4px;margin-top:10px}nav button{flex:1;border:0;border-bottom:3px solid transparent;border-radius:4px 4px 0 0;background:transparent;padding:9px 4px}nav button[aria-selected=true]{color:#1745a8;border-bottom-color:var(--blue);font-weight:600}main{padding:16px 16px 145px;max-width:760px;margin:auto}.panel[hidden],[hidden]{display:none!important}.card{background:white;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}.toolbar{display:flex;gap:6px;flex-wrap:wrap}.toolbar button{font-size:12px;flex-grow:1}.field{margin:10px 0}.field>label{display:block;font-weight:600;margin-bottom:4px}.input-wrapper{display:flex;align-items:center;gap:7px}.input-wrapper input[type=text]{height:34px}.input-wrapper:has([aria-invalid=true]) input[type=text]{border-color:#b42318}.error{color:#b42318;font-size:12px;margin-top:3px}.error:empty{display:none}.check{display:flex;gap:8px;align-items:center;font-size:13px;margin:8px 0}.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}details{margin-bottom:12px;background:white;border:1px solid var(--border);border-radius:9px;padding:10px 12px}summary{cursor:pointer;font-weight:600}.swatch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.swatch{border:1px solid var(--border);border-radius:7px;overflow:hidden;min-width:0;background:white}.chip{width:100%;border:0;border-radius:0;min-height:48px;font-weight:600}.swatch-body{padding:7px;font-size:12px}.swatch-body input{font-size:12px;margin-top:4px}.swatch-body span{display:block}.notice{background:#eff5ff;border:1px solid #c6d9ff;padding:9px;border-radius:7px;font-size:12px;margin:8px 0}.notice.warning{background:#fff7e6;border-color:#ebd2a1;color:#714900}.preview-demo{padding:18px;border-radius:8px;border:1px solid var(--border);margin:12px 0}.preview-demo button{color:inherit;background:transparent;border:1px solid currentColor}#pair-result{font-weight:600}#pair-flags{font-size:12px}.pair-select{margin-bottom:10px}.mapping{margin:12px 0}.mapping strong{display:block;margin-bottom:4px}.mapping select{font-size:12px}.mapping .help{margin-bottom:3px}.custom-item{display:flex;align-items:end;gap:6px;margin:8px 0}.custom-item label{font-size:12px;display:block}.custom-item>div{flex:1;min-width:0}.custom-item button{flex-shrink:0}textarea{height:180px;resize:vertical;font:11px/1.5 ui-monospace,monospace}.footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);padding:10px 16px;z-index:3;box-shadow:0 -3px 12px #1720330a}.footer-inner{max-width:728px;margin:auto}#generate{background:var(--blue);color:white;border-color:var(--blue);width:100%;font-weight:600;margin-top:6px}#generate:hover:not(:disabled){background:#1e4dc0}#status{font-size:12px;max-height:38px;overflow:auto;color:#33445b}#status.error-status{color:#b42318}#summary{font-size:12px;color:var(--muted)}dialog{max-height:85vh;overflow:auto;width:calc(100% - 24px);max-width:500px;border:1px solid var(--border);border-radius:12px;padding:18px}dialog::backdrop{background:#14223877}dialog h2{margin-top:0}dialog ul{padding-left:20px}.conflicts{max-height:130px;overflow:auto;font-size:12px}#review-update-label{padding:10px;border:1px solid #ebd2a1;border-radius:7px;background:#fff7e6}.legend{font-size:12px;color:var(--muted)}.import-item{display:flex;gap:7px;align-items:center;margin:7px 0}.import-item .color-dot{width:24px;height:24px;border:1px solid var(--border);border-radius:5px;flex-shrink:0}.import-item select{width:130px;margin-left:auto}#theme-examples{display:grid;grid-template-columns:1fr 1fr;gap:8px}.theme-card{padding:12px;border:1px solid;border-radius:8px;font-size:12px}.theme-card button{margin-top:6px;font-size:12px}#theme-warning{font-size:12px}.token-example{font:11px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}.guide-tip{font-size:12px}.empty{padding:18px 4px;color:var(--muted);text-align:center}
+@media(min-width:550px){.swatch-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="brand"><h1>🎨 ColorStyle Pro</h1><small>Palette → design system</small></div><nav role="tablist" aria-label="Plugin views"><button role="tab" id="tab-palette" aria-selected="true" aria-controls="palette-panel" tabindex="0">Palette</button><button role="tab" id="tab-preview" aria-selected="false" aria-controls="preview-panel" tabindex="-1">Preview</button><button role="tab" id="tab-export" aria-selected="false" aria-controls="export-panel" tabindex="-1">Export</button><button role="tab" id="tab-help" aria-selected="false" aria-controls="help-panel" tabindex="-1">Help</button></nav></header>
+<main>
+<fieldset id="editor">
+<section class="panel" id="palette-panel" role="tabpanel" aria-labelledby="tab-palette">
+<div class="toolbar"><button type="button" id="example">Try example</button><button type="button" id="suggest">Suggest companions</button><button type="button" id="import-selection">Use frame colors</button></div>
+<p id="selection-summary" class="notice" role="status">Select a frame to detect its colors and gradients.</p>
+<p class="help">Start with a Primary color. Add companions or optional groups when you need them.</p>
+<div id="core-fields"></div>
+<details id="status-colors"><summary>Status colors <span class="help">· optional</span></summary><div id="status-fields"></div></details>
+<details id="custom-groups"><summary>Custom groups</summary><div id="custom-list"></div><button type="button" id="add-group">+ Add group</button><p class="help">Use unique names such as Accent or Product Blue.</p></details>
+<div class="card"><div class="field"><label for="dark-shades-toggle">Palette size</label><select id="dark-shades-toggle"><option value="light-only">6 tints · 50–500</option><option value="with-dark">10 tones · 50–900</option></select><p class="help">The preview, Figma assets and exports use exactly these tones.</p></div></div>
+<details id="advanced"><summary>Generation settings</summary>
+<div class="field"><label for="collection">Destination collection</label><input id="collection" value="Color" maxlength="64"><p class="help">Use a separate name for another brand or existing system.</p></div>
+<div class="field"><label for="algorithm">Palette algorithm</label><select id="algorithm"><option value="rgb">RGB mixing · original behavior</option><option value="oklch">OKLCH · perceptual lightness</option></select><p class="help">Level 500 stays locked to your base color. Other tones can be edited in Preview.</p></div>
+<div class="field"><label for="style-prefix">Style namespace · optional</label><input id="style-prefix" placeholder="Brand or product name" maxlength="40"><p class="help">Use a distinct prefix to keep paint styles from different brands separate.</p></div>
+<div class="field"><label for="naming-convention">Figma style naming</label><select id="naming-convention"><option value="group/level">Group / Level</option><option value="brand.group.level">brand.group.level</option></select><p class="token-example" id="naming-example"></p><p class="help">Changing the style naming leaves old names in place. Palette variables and export names stay stable.</p></div>
+<label class="check"><input type="checkbox" id="create-variables" checked>Create/update palette variables</label><label class="check"><input type="checkbox" id="create-styles" checked>Create/update paint styles</label><label class="check"><input type="checkbox" id="create-guide" checked>Update palette snapshot on this page</label><label class="check"><input type="checkbox" id="create-token-frame">Add/update token frame on this page</label><p class="help">Snapshots keep their colors and labels together. Existing guides from the old version are left intact.</p>
+<button type="button" id="import-document">Load base colors from collection</button>
+</details>
+<details id="themes"><summary>Semantic Light/Dark themes</summary><label class="check"><input type="checkbox" id="create-themes">Create semantic theme aliases</label><p class="help">Requires Grey, 10 tones and palette variables. Creates a separate “Collection Theme” with reviewed Light/Dark mappings. Extra Figma modes may require a compatible plan.</p><div id="theme-mappings"></div><div id="theme-warning"></div></details>
+<details id="saved"><summary>Saved palettes &amp; settings</summary><div class="field"><label for="saved-name">Palette name</label><input id="saved-name" placeholder="My brand" maxlength="40"></div><div class="toolbar"><button type="button" id="save-palette">Save palette</button><button type="button" id="reset">Reset draft</button></div><div class="field"><label for="saved-palettes">Saved palettes</label><select id="saved-palettes"><option value="">Choose a palette</option></select></div><div class="toolbar"><button type="button" id="load-palette">Load</button><button type="button" id="delete-palette">Remove saved palette</button><button type="button" id="export-settings">Export settings</button><button type="button" id="import-settings">Import settings</button></div><input type="file" id="settings-file" accept=".json,application/json" hidden><p class="help">Your draft and saved palettes are stored locally for this Figma user and plugin.</p></details>
+<details id="gradients" hidden><summary>Selected gradients <span id="gradient-count"></span></summary><p class="notice warning">CSS geometry is approximate, especially radial and diamond gradients. JSON and DTCG retain the original Figma paints.</p><label class="check"><input type="checkbox" id="include-gradients">Include imported gradients</label><div id="gradient-list"></div></details>
+</section>
+<section class="panel" id="preview-panel" role="tabpanel" aria-labelledby="tab-preview" hidden>
+<h2>Palette &amp; contrast</h2><p class="help">Select a swatch to copy its hex. Edit a tone below the swatch; 500 stays locked to the base color.</p><button type="button" id="reset-overrides">Reset tone edits</button><div id="duplicate-warning"></div><div id="swatch-grid"></div>
+<div class="card"><h2>Test a color pair</h2><div class="field"><label for="pair-foreground">Foreground / text</label><select id="pair-foreground" class="pair-select"></select></div><div class="field"><label for="pair-background">Background</label><select id="pair-background" class="pair-select"></select></div><button type="button" id="swap-pair">Swap colors</button><div id="pair-demo" class="preview-demo">Readable content preview<p>Body text and a control using this pair.</p><button type="button">Example button</button></div><div id="pair-result" role="status"></div><p id="pair-flags"></p><div class="field"><label for="passing-alternatives">Passing text alternatives ≥ 4.5:1</label><select id="passing-alternatives"></select></div><p class="help">Normal text AA ≥ 4.5:1; AAA ≥ 7:1. Large text and applicable UI boundaries ≥ 3:1. Evaluate actual adjacent colors; badges do not certify a whole interface.</p></div>
+<div id="theme-preview" hidden><h2>Theme examples</h2><div id="theme-examples"></div></div>
+</section>
+</fieldset>
+<section class="panel" id="export-panel" role="tabpanel" aria-labelledby="tab-export" hidden>
+<h2>Export tokens</h2><p class="help">Export the draft without changing Figma, or use the most recent generated snapshot.</p><button type="button" id="export-draft">Export current draft only</button><p class="notice" id="export-source">No export yet. Generate or export your draft.</p><p class="notice warning" id="stale-result" hidden>Changes have not been generated. These tokens belong to the previous snapshot.</p>
+<div class="field"><label for="token-format">Export format</label><select id="token-format"><option value="css">CSS</option><option value="scss">SCSS</option><option value="json">JSON · includes raw gradients</option><option value="dtcg">DTCG · typed colors &amp; aliases</option></select></div><label for="tokens">Snapshot tokens</label><textarea id="tokens" readonly placeholder="Tokens will appear here"></textarea><div class="toolbar"><button type="button" id="copy" disabled>Copy tokens</button><button type="button" id="download" disabled>Download</button><button type="button" id="locate-guide">Locate guide</button></div><p class="help">Format changes reserialize this snapshot without regenerating Figma assets. DTCG exports theme aliases under separate Light/Dark groups.</p>
+</section>
+<section class="panel" id="help-panel" role="tabpanel" aria-labelledby="tab-help" hidden>
+<h2>A palette you can trust</h2><div class="card"><h3>1. Start with the brand color</h3><p>Paste six-digit or shorthand hex with or without #. Alpha colors are rejected. Secondary, Grey and status colors are optional.</p><h3>2. Review the exact output</h3><p>Choose six tints or ten tones. Preview uses the same calculation as generation. Level 500 is your original color; edited tones are included everywhere.</p><h3>3. Review asset changes</h3><p>Generate opens a create/update summary. Same-name assets made by another tool need an explicit update choice. A new collection name avoids variable conflicts; style names must also be unique.</p><h3>4. Understand themes</h3><p>Palette variables are primitives in one Value mode. Darker tones alone do not change a theme. Semantic roles such as Text/Primary point to different palette tones in Light and Dark.</p><h3>5. Check real pairs</h3><p>A color itself does not pass WCAG. A specific foreground/background pair does. Check body text, buttons, borders and status messages in their actual context; use labels/icons as well as hue.</p><h3>6. Keep documentation consistent</h3><p>Guides and token frames are static snapshots. Regeneration replaces this plugin’s previous snapshot on the current page at its existing position. Manual variable edits do not change snapshot colors or labels.</p><h3>7. Export a known revision</h3><p>Tokens describe the last exported or generated snapshot. Editing the draft marks them as previous output. Downloading or switching formats does not change your document.</p></div><p class="help">Generation journals asset updates and attempts rollback on errors. Recovery failures are reported explicitly. Gradients use approximate CSS; structured exports retain raw Figma geometry.</p>
+</section>
+</main>
+<footer class="footer"><div class="footer-inner"><div id="summary">Enter Primary to start.</div><div id="status" role="status" aria-live="polite"></div><button type="button" id="generate" disabled>Review &amp; Generate</button></div></footer>
+<dialog id="review-dialog" aria-labelledby="review-title"><h2 id="review-title">Review asset changes</h2><div id="review-summary"></div><ul id="review-conflicts" class="conflicts"></ul><label class="check" id="review-update-label" hidden><input type="checkbox" id="review-update">Update the listed existing assets and their target values</label><p class="help">Unrelated variables, extra modes and old style names are preserved. Bound styles cannot be changed to a different color with Variables off.</p><div class="toolbar"><button type="button" id="review-cancel">Back</button><button type="button" id="review-apply">Generate reviewed palette</button></div></dialog>
+<dialog id="import-dialog" aria-labelledby="import-title"><h2 id="import-title">Colors in the selection</h2><p class="help">Includes nested fills, strokes, text, shadows and gradient stops, including hidden paints. Assign RGB bases below; opacity is shown but base palettes use opaque RGB. Image pixels are not sampled.</p><p id="import-count" class="help"></p><div id="import-list"></div><div class="toolbar"><button type="button" id="import-cancel">Cancel</button><button type="button" id="import-apply">Apply chosen colors</button></div></dialog>
+<script>
+/* Shared by Figma and the UI. Canonical colors have one source of truth. */
+const ColorStyle = (() => {
+  const groups = ['primary', 'secondary', 'grey', 'info', 'success', 'alert', 'danger'];
+  const labels = { primary: 'Primary', secondary: 'Secondary', grey: 'Grey', info: 'Info', success: 'Success', alert: 'Warning', danger: 'Danger' };
+  const weights = [[50,.95],[100,.85],[200,.70],[300,.55],[400,.35],[500,0],[600,-.10],[700,-.20],[800,-.30],[900,-.45]];
+  const roleNames = ['Background/Default','Surface/Default','Text/Primary','Border/Default','Action/Primary','Action/Text'];
+  const normalize = value => {
+    if (typeof value !== 'string') return null;
+    let s = value.trim().replace(/^#/, '');
+    if (/^[a-f0-9]{3}$/i.test(s)) s = s.split('').map(c => c+c).join('');
+    return /^[a-f0-9]{6}$/i.test(s) ? '#'+s.toUpperCase() : null;
+  };
+  const rgb = hex => { const h = normalize(hex); if (!h) throw new Error('Invalid color: '+hex); return {r:parseInt(h.slice(1,3),16)/255,g:parseInt(h.slice(3,5),16)/255,b:parseInt(h.slice(5,7),16)/255}; };
+  const hex = color => '#'+['r','g','b'].map(k=>Math.round(Math.max(0,Math.min(1,color[k]))*255).toString(16).padStart(2,'0')).join('').toUpperCase();
+  const linear = v => v <= .04045 ? v/12.92 : Math.pow((v+.055)/1.055,2.4);
+  const encoded = v => v <= .0031308 ? 12.92*v : 1.055*Math.pow(v,1/2.4)-.055;
+  const luminance = c => .2126*linear(c.r)+.7152*linear(c.g)+.0722*linear(c.b);
+  const contrast = (a,b) => (Math.max(luminance(a),luminance(b))+.05)/(Math.min(luminance(a),luminance(b))+.05);
+  function lab(c) {
+    const r=linear(c.r),g=linear(c.g),b=linear(c.b);
+    const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+    return [.2104542553*l+.793617785*m-.0040720468*s,1.9779984951*l-2.428592205*m+.4505937099*s,.0259040371*l+.7827717662*m-.808675766*s];
+  }
+  function fromLab([L,a,b]) {
+    const l=(L+.3963377774*a+.2158037573*b)**3,m=(L-.1055613458*a-.0638541728*b)**3,s=(L-.0894841775*a-1.291485548*b)**3;
+    return {r:encoded(4.0767416621*l-3.3077115913*m+.2309699292*s),g:encoded(-1.2684380046*l+2.6097574011*m-.3413193965*s),b:encoded(-.0041960863*l-.7034186147*m+1.707614701*s)};
+  }
+  function perceptual(base,w) {
+    const [L,a,b]=lab(base),C=Math.hypot(a,b),h=Math.atan2(b,a);
+    const targetL=w>=0?L*(1-w)+w:L*(1+w),targetC=C*(1-Math.abs(w));
+    let low=0,high=targetC,result;
+    for(let i=0;i<24;i++) {const chroma=i===0?high:(low+high)/2;const c=fromLab([targetL,chroma*Math.cos(h),chroma*Math.sin(h)]);const inside=Object.values(c).every(v=>v>=-1e-7&&v<=1+1e-7);if(inside){low=chroma;result=c;if(i===0)break}else high=chroma;}
+    return result||fromLab([targetL,0,0]);
+  }
+  function shades(base,dark,algorithm='rgb') {
+    return weights.slice(0,dark?10:6).map(([level,w])=>{
+      const c=algorithm==='oklch'&&level!==500?perceptual(base,w):Object.fromEntries(['r','g','b'].map(k=>[k,w>=0?base[k]*(1-w)+w:base[k]*(1+w)]));
+      return {level,color:rgb(hex(c))};
+    });
+  }
+  function build(input) {
+    if (!input || typeof input !== 'object' || !input.colors || !input.options) throw new Error('Missing palette settings.');
+    const {colors,options}=input;
+    if (!['light-only','with-dark'].includes(options.darkShades)) throw new Error('Choose a palette size.');
+    if (!['group/level','brand.group.level'].includes(options.naming)) throw new Error('Choose a naming convention.');
+    if (options.algorithm && !['rgb','oklch'].includes(options.algorithm)) throw new Error('Unknown palette algorithm.');
+    const collection=(options.collection||'Color').trim();
+    if (!collection || collection.length>64 || /[\x00-\x1f]/.test(collection)) throw new Error('Collection name must contain 1–64 printable characters.');
+    const custom=Array.isArray(input.custom)?input.custom:[];
+    if(custom.length>20) throw new Error('Use no more than 20 custom groups.');
+    const map={},entries=[],used=new Set([...groups,'warning','gradients','theme','palette']),overrides=input.overrides||{};
+    for(const key of Object.keys(colors)) if(!groups.includes(key)) throw new Error('Unknown color group: '+key);
+    const sources=groups.map(key=>({key,name:key[0].toUpperCase()+key.slice(1),value:colors[key]}));
+    for(const group of custom){
+      if(!group||typeof group.name!=='string'||!/^\w[\w -]{0,31}$/.test(group.name.trim()))throw new Error('Custom group names use letters, numbers, spaces, hyphens or underscores (up to 32).');
+      const key=group.name.trim().toLowerCase().replace(/[ _]+/g,'-');
+      if(used.has(key))throw new Error('Duplicate group: '+group.name);
+      used.add(key);sources.push({key,name:group.name.trim(),value:group.color});
+    }
+    if(!normalize(colors.primary))throw new Error('Enter a valid Primary color.');
+    for(const source of sources){
+      if(!source.value)continue;
+      const value=normalize(source.value);if(!value)throw new Error('Enter a valid hex for '+source.name+'; alpha colors are not supported.');
+      map[source.name]=shades(rgb(value),options.darkShades==='with-dark',options.algorithm||'rgb');
+      for(const item of map[source.name]){
+        const path=source.name+'/'+item.level,override=overrides[path];
+        if(override&&item.level!==500){const color=normalize(override);if(!color)throw new Error('Invalid override for '+path);item.color=rgb(color);}
+        entries.push({path,key:source.key,name:source.name,level:item.level,color:item.color,styleName:options.naming==='brand.group.level'?'brand.'+source.key+'.'+item.level:source.name+' / '+item.level});
+      }
+    }
+    const prefix=(options.stylePrefix||'').trim();
+    if(prefix.length>40||/[\x00-\x1f]/.test(prefix))throw new Error('Style prefix must contain up to 40 printable characters.');
+    if(prefix)for(const entry of entries)entry.styleName=options.naming==='brand.group.level'?slug(prefix)+'.'+entry.styleName:prefix+' / '+entry.styleName;
+    const theme=options.createThemes===true;
+    if(theme && (!options.createVariables || options.darkShades!=='with-dark' || !map.Grey))throw new Error('Theme modes require Variables, a Grey color and 10 tones.');
+    const defaults={'Background/Default':['Grey/50','Grey/900'],'Surface/Default':['Grey/100','Grey/800'],'Text/Primary':['Grey/900','Grey/50'],'Border/Default':['Grey/300','Grey/600'],'Action/Primary':['Primary/500','Primary/300']};
+    const paths=new Map(entries.map(e=>[e.path,e]));
+    const mappings={};
+    if(theme){
+      for(const role of roleNames){
+        let pair=defaults[role];
+        if(role==='Action/Text')pair=['Light','Dark'].map((_,i)=>{const target=paths.get((input.mappings?.['Action/Primary']||defaults['Action/Primary'])[i]);if(!target)throw new Error('Invalid Action/Primary mapping.');const white=paths.get('Grey/50'),black=paths.get('Grey/900');return contrast(target.color,white.color)>=contrast(target.color,black.color)?white.path:black.path;});
+        const chosen=input.mappings?.[role]||pair;
+        if(!Array.isArray(chosen)||chosen.length!==2||chosen.some(path=>!paths.has(path)))throw new Error('Choose valid Light and Dark aliases for '+role);
+        mappings[role]=chosen.slice();
+      }
+    }
+    return {map,entries,mappings,theme,collection,options:{...options,collection},generatedAt:new Date().toISOString()};
+  }
+  const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  function gradientCSS(paint){
+    const m=paint.gradientTransform||[[1,0,0],[0,1,0]];
+    const angle=Math.round(Math.atan2(m[0][1],m[0][0])*180/Math.PI)+'deg';
+    const opacity=paint.opacity??1;
+    const stops=paint.gradientStops.map(stop=>{const a=(stop.color.a??1)*opacity;return (a<1?'rgba('+['r','g','b'].map(k=>Math.round(stop.color[k]*255)).join(', ')+', '+a+')':hex(stop.color))+' '+Math.round(stop.position*100)+'%';}).join(', ');
+    return paint.type==='GRADIENT_RADIAL'?'radial-gradient('+stops+')':paint.type==='GRADIENT_ANGULAR'?'conic-gradient(from '+angle+', '+stops+')':'linear-gradient('+angle+', '+stops+')';
+  }
+  function exportsFor(model){return Object.fromEntries(['css','scss','json','dtcg'].map(format=>[format,serialize(model,format)]));}
+  function serialize(model,format){
+    if(!['css','scss','json','dtcg'].includes(format))throw new Error('Unsupported export format.');
+    const gradientEntries=model.gradients||[];
+    if(format==='dtcg'){
+      const obj={Palette:{$type:'color'}};
+      for(const e of model.entries){obj.Palette[e.name]??={};obj.Palette[e.name][e.level]={$value:{colorSpace:'srgb',components:[e.color.r,e.color.g,e.color.b],hex:hex(e.color)},$description:'Palette '+e.path};}
+      if(model.theme){obj.Theme={};for(const [role,pair] of Object.entries(model.mappings)){const [group,name]=role.split('/');obj.Theme[group]??={};obj.Theme[group][name]={Light:{$type:'color',$value:'{Palette.'+pair[0].replace('/','.')+'}'},Dark:{$type:'color',$value:'{Palette.'+pair[1].replace('/','.')+'}'}};}}
+      if(gradientEntries.length)obj.$extensions={'com.colorstyle-pro.gradients':gradientEntries.map(g=>({name:g.name,figmaPaint:g.fill,cssApproximation:gradientCSS(g.fill)}))};
+      return JSON.stringify(obj,null,2);
+    }
+    if(format==='json'){
+      const obj={};for(const e of model.entries){obj[e.name]??={};obj[e.name][e.level]=hex(e.color);}
+      if(model.theme){obj.Theme={Light:{},Dark:{}};for(const [role,pair]of Object.entries(model.mappings)){obj.Theme.Light[role]={alias:pair[0],value:hex(model.entries.find(e=>e.path===pair[0]).color)};obj.Theme.Dark[role]={alias:pair[1],value:hex(model.entries.find(e=>e.path===pair[1]).color)};}}
+      if(gradientEntries.length)obj.Gradients=Object.fromEntries(gradientEntries.map(g=>[g.name,{cssApproximation:gradientCSS(g.fill),figmaPaint:g.fill}]));
+      return JSON.stringify(obj,null,2);
+    }
+    const lines=model.entries.map(e=>(format==='css'?'  --':'$')+e.key+'-'+e.level+': '+hex(e.color)+';');
+    for(const g of gradientEntries)lines.push((format==='css'?'  --':'$')+'gradient-'+slug(g.name)+': '+gradientCSS(g.fill)+';');
+    if(gradientEntries.length)lines.unshift('/* Gradient CSS geometry is approximate; JSON/DTCG preserve Figma paints. */');
+    let text=format==='css'?':root {\n'+lines.join('\n')+'\n}':lines.join('\n');
+    if(model.theme){
+      for(const [i,mode]of ['light','dark'].entries()){
+        const themeLines=Object.entries(model.mappings).map(([role,pair])=>{const e=model.entries.find(e=>e.path===pair[i]);return format==='css'?'  --'+slug(role)+': var(--'+e.key+'-'+e.level+');':'$'+mode+'-'+slug(role)+': $'+e.key+'-'+e.level+';';});
+        text+='\n\n'+(format==='css'?'[data-theme="'+mode+'"] {\n'+themeLines.join('\n')+'\n}':themeLines.join('\n'));
+      }
+    }
+    return text;
+  }
+  return {groups,labels,roleNames,normalize,rgb,hex,contrast,shades,build,serialize,exportsFor,gradientCSS};
+})();
+
+
+const $=id=>document.getElementById(id);
+const state={custom:[],overrides:{},mappings:{},saved:[],gradients:[]};
+let revision=0,busy=false,review=null,result=null,model=null,persistTimer=null,view='palette',selectionCandidate=null;
+// Figma's desktop bridge may dispatch MessageEvents with source === null.
+// Correlate replies to this UI session/request instead of comparing Window objects.
+const clientId='colorstyle-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+let requestSerial=0,activeRequest=null;
+const requestTimeoutMs=20000;
+function clearRequest(){if(activeRequest?.timer)clearTimeout(activeRequest.timer);activeRequest=null;}
+const touched=new Set(),invalidTones=new Set();
+function post(message){
+  const requestId=clientId+'-'+(++requestSerial);
+  if(['review-generation','apply-generation','preview-export'].includes(message.type)){
+    clearRequest();
+    const operation=message.type;
+    activeRequest={id:requestId,operation,timer:setTimeout(()=>{
+      if(activeRequest?.id!==requestId)return;
+      if(operation==='apply-generation'){
+        status('Figma has not confirmed completion yet. Keep this window open; do not start another generation.',true);
+        return;
+      }
+      clearRequest();
+      post({type:'cancel-review'});
+      review=null;setBusy(false);
+      status(operation==='review-generation'?'Figma did not finish checking assets. Nothing was generated. Try again or close and reopen the plugin.':'The export did not respond. Try again or reopen the plugin.',true);
+    },requestTimeoutMs)};
+  }
+  parent.postMessage({pluginMessage:{...message,clientId,requestId}},'*');
+}
+
+function status(message,error=false){$('status').textContent=message;$('status').classList.toggle('error-status',error);}
+function make(tag,text,className){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;}
+function chooseView(name,focus=false){view=name;for(const tab of ['palette','preview','export','help']){const active=tab===name;$('tab-'+tab).setAttribute('aria-selected',String(active));$('tab-'+tab).tabIndex=active?0:-1;$(tab+'-panel').hidden=!active;}if(focus)$('tab-'+name).focus();}
+const tabs=['palette','preview','export','help'];
+for(const name of tabs){$('tab-'+name).onclick=()=>chooseView(name);$('tab-'+name).onkeydown=event=>{let next;if(event.key==='ArrowRight')next=(tabs.indexOf(name)+1)%4;if(event.key==='ArrowLeft')next=(tabs.indexOf(name)+3)%4;if(event.key==='Home')next=0;if(event.key==='End')next=3;if(next!==undefined){event.preventDefault();chooseView(tabs[next],true);}};}
+for(const key of ColorStyle.groups){
+  const field=make('div',undefined,'field'),label=make('label',ColorStyle.labels[key]+(key==='primary'?' *':' · optional'));label.htmlFor=key+'-hex';
+  const wrapper=make('div',undefined,'input-wrapper'),picker=make('input'),hex=make('input'),error=make('div',undefined,'error');picker.type='color';picker.id=key+'-picker';picker.value='#ffffff';picker.setAttribute('aria-label',ColorStyle.labels[key]+' picker');hex.type='text';hex.id=key+'-hex';hex.placeholder=key==='primary'?'#3366FF':'Not included';hex.spellcheck=false;hex.autocomplete='off';hex.setAttribute('aria-describedby',key+'-error');if(key==='primary')hex.required=true;error.id=key+'-error';
+  wrapper.append(picker,hex);field.append(label,wrapper,error);$(ColorStyle.groups.indexOf(key)<3?'core-fields':'status-fields').append(field);
+  picker.oninput=()=>{hex.value=picker.value.toUpperCase();touched.add(key);changed();};
+  hex.oninput=()=>{const value=ColorStyle.normalize(hex.value);if(value)picker.value=value;touched.add(key);changed();};
+  hex.onblur=()=>{const value=ColorStyle.normalize(hex.value);if(value)hex.value=value;else hex.value=hex.value.trim();touched.add(key);renderValidation();};
+}
+function request(){return {colors:Object.fromEntries(ColorStyle.groups.map(k=>[k,$(k+'-hex').value.trim()])),custom:state.custom.map(g=>({...g})),overrides:{...state.overrides},mappings:JSON.parse(JSON.stringify(state.mappings)),gradientNames:state.gradients.map(g=>g.name),options:{darkShades:$('dark-shades-toggle').value,naming:$('naming-convention').value,collection:$('collection').value.trim(),stylePrefix:$('style-prefix').value.trim(),algorithm:$('algorithm').value,createVariables:$('create-variables').checked,createStyles:$('create-styles').checked,createGuide:$('create-guide').checked,createTokenFrame:$('create-token-frame').checked,createThemes:$('create-themes').checked,includeGradients:$('include-gradients').checked},format:$('token-format').value};}
+function changed(){invalidTones.clear();revision++;review=null;render();persist();}
+function setBusy(value){busy=value;$('editor').disabled=value;for(const id of ['export-draft','token-format','copy','download','locate-guide'])$(id).disabled=value||(['copy','download'].includes(id)&&!result);$('generate').textContent=value?'Working…':'Review & Generate';renderValidation();}
+function renderValidation(){
+  for(const key of ColorStyle.groups){const raw=$(key+'-hex').value.trim(),bad=!!raw&&!ColorStyle.normalize(raw);$(key+'-error').textContent=bad?'Use #3366FF or #36F. Alpha is not supported.':key==='primary'&&touched.has(key)&&!raw?'Enter a Primary color.':'';$(key+'-hex').setAttribute('aria-invalid',String(bad));}
+  try{model=ColorStyle.build(request());const o=model.options,count=model.entries.length;$('generate').disabled=busy||invalidTones.size>0||![o.createVariables,o.createStyles,o.createGuide,o.createTokenFrame].some(Boolean);$('export-draft').disabled=busy||invalidTones.size>0;$('summary').textContent=count+' tones · '+(o.createVariables?'variables, ':'')+(o.createStyles?'styles, ':'')+(o.createGuide?'snapshot':'no guide')+(model.theme?' · Light/Dark aliases':'');if(![o.createVariables,o.createStyles,o.createGuide,o.createTokenFrame].some(Boolean))$('summary').textContent='No Figma outputs selected. Use Export current draft only.';if(invalidTones.size)$('summary').textContent='Fix the invalid tone edit before generating.';}catch(error){model=null;$('generate').disabled=true;$('export-draft').disabled=true;$('summary').textContent=error.message;}
+}
+function render(){renderValidation();$('naming-example').textContent='Style: '+($('style-prefix').value?$('style-prefix').value+' / ':'')+($('naming-convention').value==='group/level'?'Primary / 500':'brand.primary.500')+' · Variable: Primary/500 · CSS: --primary-500';renderMappings();renderPreview();renderExport();}
+function renderCustom(){
+  $('custom-list').replaceChildren();state.custom.forEach((group,index)=>{const row=make('div',undefined,'custom-item'),nameWrap=make('div'),colorWrap=make('div'),name=make('input'),color=make('input'),nameLabel=make('label','Name'),colorLabel=make('label','Base color'),remove=make('button','Remove');name.id='custom-name-'+index;nameLabel.htmlFor=name.id;name.value=group.name;name.maxLength=32;color.id='custom-color-'+index;colorLabel.htmlFor=color.id;color.value=group.color;color.placeholder='#3366FF';nameWrap.append(nameLabel,name);colorWrap.append(colorLabel,color);row.append(nameWrap,colorWrap,remove);$('custom-list').append(row);name.onchange=()=>{group.name=name.value.trim();changed();};color.onchange=()=>{group.color=ColorStyle.normalize(color.value)||color.value.trim();color.value=group.color;changed();};remove.onclick=()=>{state.custom.splice(index,1);renderCustom();changed();};});
+}
+$('add-group').onclick=()=>{if(state.custom.length>=20){status('Maximum 20 custom groups.',true);return;}let n=state.custom.length+1;while(state.custom.some(g=>g.name==='Accent '+n))n++;state.custom.push({name:'Accent '+n,color:''});renderCustom();changed();};
+for(const id of ['dark-shades-toggle','naming-convention','algorithm','create-variables','create-styles','create-guide','create-token-frame','include-gradients','create-themes'])$(id).onchange=()=>{if(id==='create-themes'&&$('create-themes').checked){$('create-variables').checked=true;$('dark-shades-toggle').value='with-dark';if(!$('grey-hex').value)status('Add Grey or use Suggest companions to define theme aliases.');}changed();};
+$('collection').oninput=changed;$('style-prefix').oninput=changed;
+$('example').onclick=()=>{for(const [key,value]of Object.entries({primary:'#3366FF',secondary:'#00AA55',grey:'#64748B',info:'#0284C7',success:'#15803D',alert:'#D97706',danger:'#DC2626'})){$(key+'-hex').value=value;$(key+'-picker').value=value;}state.overrides={};state.mappings={};changed();status('Example loaded. Adjust the brand colors before generating.');};
+$('suggest').onclick=()=>{if(!ColorStyle.normalize($('primary-hex').value)){status('Enter Primary first, or choose Try example.',true);return;}if(!$('secondary-hex').value)$('secondary-hex').value='#0F766E';if(!$('grey-hex').value)$('grey-hex').value='#64748B';for(const key of ['secondary','grey'])$(key+'-picker').value=ColorStyle.normalize($(key+'-hex').value)||'#ffffff';changed();status('Added editable companion suggestions to empty fields.');};
+function paletteChoices(){return [{path:'White',color:{r:1,g:1,b:1}},{path:'Black',color:{r:0,g:0,b:0}},...(model?.entries||[]).map(e=>({path:e.path,color:e.color}))];}
+function fillSelect(select,choices,value){select.replaceChildren();for(const choice of choices){const option=make('option',choice.label||choice.path);option.value=choice.path;select.append(option);}if(choices.some(c=>c.path===value))select.value=value;}
+function renderMappings(){
+  const container=$('theme-mappings');container.replaceChildren();$('theme-warning').textContent='';
+  if(!$('create-themes').checked)return;
+  let base;try{base=ColorStyle.build({...request(),mappings:{}});}catch(error){$('theme-warning').textContent=error.message;return;}
+  const choices=base.entries.map(e=>({path:e.path}));
+  for(const role of ColorStyle.roleNames){const row=make('div',undefined,'mapping');row.append(make('strong',role));const cols=make('div',undefined,'row');const current=state.mappings[role]||base.mappings[role];for(let i=0;i<2;i++){const wrap=make('div'),label=make('label',i?'Dark':'Light','help'),select=make('select');select.id='mapping-'+role.replace('/','-')+'-'+i;label.htmlFor=select.id;fillSelect(select,choices,current[i]);if(!choices.some(c=>c.path===current[i])){const missing=make('option','Unavailable: '+current[i]);missing.value=current[i];missing.disabled=true;select.prepend(missing);select.value=current[i];}wrap.append(label,select);cols.append(wrap);select.onchange=()=>{state.mappings[role]=[cols.children[0].querySelector('select').value,cols.children[1].querySelector('select').value];changed();};}row.append(cols);container.append(row);}
+}
+function renderPreview(){
+  const root=$('swatch-grid');root.replaceChildren();$('duplicate-warning').replaceChildren();
+  if(!model){root.append(make('p','Enter a valid palette to preview its exact output.','empty'));renderPair();$('theme-preview').hidden=true;return;}
+  let duplicateCount=0;
+  for(const [name,items]of Object.entries(model.map)){
+    const section=make('section'),heading=make('h3',name==='Alert'?'Warning':name),grid=make('div',undefined,'swatch-grid');section.append(heading,grid);root.append(section);
+    duplicateCount+=items.length-new Set(items.map(s=>ColorStyle.hex(s.color))).size;
+    for(const item of items){const value=ColorStyle.hex(item.color),w=ColorStyle.contrast(item.color,{r:1,g:1,b:1}),b=ColorStyle.contrast(item.color,{r:0,g:0,b:0}),tile=make('div',undefined,'swatch'),chip=make('button',item.level+' · '+value,'chip'),body=make('div',undefined,'swatch-body');chip.type='button';chip.style.background=value;chip.style.color=w>=b?'white':'black';chip.setAttribute('aria-label','Copy '+name+'/'+item.level+' '+value);chip.onclick=()=>copyText(value);body.append(make('span','White '+w.toFixed(2)+':1 · Black '+b.toFixed(2)+':1'),make('span',(w>=b?'White':'Black')+' text: '+(Math.max(w,b)>=7?'AAA':'AA')));
+      if(item.level===500)body.append(make('span','Base color · locked','help'));else{const label=make('label','Edit '+name+'/'+item.level),input=make('input');input.value=value;input.id='tone-'+name.replace(/[^\w]/g,'-')+'-'+item.level;label.htmlFor=input.id;input.setAttribute('aria-label','Edit '+name+'/'+item.level);input.onchange=()=>{const normalized=ColorStyle.normalize(input.value);if(!normalized){input.setAttribute('aria-invalid','true');invalidTones.add(name+'/'+item.level);renderValidation();status('Use a valid opaque hex for '+name+'/'+item.level,true);return;}state.overrides[name+'/'+item.level]=normalized;changed();};body.append(label,input);}
+      tile.append(chip,body);grid.append(tile);
+    }
+  }
+  if(duplicateCount)$('duplicate-warning').append(make('p',duplicateCount+' repeated tone'+(duplicateCount>1?'s':'')+'. Very light or dark bases can produce identical colors. Edit tones or try OKLCH.','notice warning'));
+  renderPair();renderThemeExamples();
+}
+function renderPair(){
+  const choices=paletteChoices(),fg=$('pair-foreground').value||'Black',bg=$('pair-background').value||'White';fillSelect($('pair-foreground'),choices,fg);fillSelect($('pair-background'),choices,bg);updatePair();
+}
+function updatePair(){
+  const choices=paletteChoices(),foreground=choices.find(c=>c.path===$('pair-foreground').value),background=choices.find(c=>c.path===$('pair-background').value);if(!foreground||!background)return;
+  const ratio=ColorStyle.contrast(foreground.color,background.color);$('pair-demo').style.color=ColorStyle.hex(foreground.color);$('pair-demo').style.background=ColorStyle.hex(background.color);$('pair-result').textContent=ratio.toFixed(2)+':1 · '+(ratio>=4.5?'AA normal text passes':'AA normal text fails');$('pair-flags').textContent='AAA normal: '+(ratio>=7?'Pass':'Fail')+' · AA large: '+(ratio>=3?'Pass':'Fail')+' · Applicable UI boundary: '+(ratio>=3?'Pass':'Fail');const passing=choices.filter(c=>ColorStyle.contrast(c.color,background.color)>=4.5).map(c=>({path:c.path,label:c.path+' · '+ColorStyle.contrast(c.color,background.color).toFixed(2)+':1'}));fillSelect($('passing-alternatives'),[{path:'',label:'Choose a passing text color'},...passing],'');
+}
+$('pair-foreground').onchange=updatePair;$('pair-background').onchange=updatePair;$('swap-pair').onclick=()=>{const fg=$('pair-foreground').value;$('pair-foreground').value=$('pair-background').value;$('pair-background').value=fg;updatePair();};$('passing-alternatives').onchange=()=>{if($('passing-alternatives').value){$('pair-foreground').value=$('passing-alternatives').value;updatePair();}};
+function renderThemeExamples(){
+  $('theme-preview').hidden=!model?.theme;if(!model?.theme)return;$('theme-examples').replaceChildren();const warnings=[];
+  for(const [index,mode]of ['Light','Dark'].entries()){const color=role=>model.entries.find(e=>e.path===model.mappings[role][index]).color,card=make('div',undefined,'theme-card');card.style.background=ColorStyle.hex(color('Surface/Default'));card.style.color=ColorStyle.hex(color('Text/Primary'));card.style.borderColor=ColorStyle.hex(color('Border/Default'));card.append(make('strong',mode),make('p','Content on surface'));const button=make('button','Primary action');button.style.background=ColorStyle.hex(color('Action/Primary'));button.style.color=ColorStyle.hex(color('Action/Text'));card.append(button);const textRatio=ColorStyle.contrast(color('Text/Primary'),color('Surface/Default')),actionRatio=ColorStyle.contrast(color('Action/Text'),color('Action/Primary'));card.append(make('p','Text '+textRatio.toFixed(2)+':1 · Action '+actionRatio.toFixed(2)+':1'));$('theme-examples').append(card);if(textRatio<4.5||actionRatio<4.5)warnings.push(mode+' has a text pair below AA.');}
+  $('theme-warning').textContent=warnings.join(' ')||'Review the Light/Dark examples in Preview. Aliases are suggestions, not an accessibility guarantee.';
+}
+$('reset-overrides').onclick=()=>{state.overrides={};changed();status('Tone edits reset.');};
+function renderExport(){
+  const format=$('token-format').value;$('tokens').value=result?.exports[format]||'';$('export-source').textContent=result?result.source+' · '+format.toUpperCase():'No export yet. Generate or export your draft.';$('stale-result').hidden=!result||result.revision===revision;for(const id of ['copy','download'])$(id).disabled=busy||!result;
+}
+$('token-format').onchange=()=>{renderExport();persist();};
+async function copyText(text){try{await navigator.clipboard.writeText(text);status('Copied.');}catch(error){const active=document.activeElement,x=window.scrollX,y=window.scrollY;const field=make('textarea');field.style.position='fixed';field.style.opacity='0';field.value=text;document.body.append(field);field.select();const ok=document.execCommand('copy');field.remove();active?.focus({preventScroll:true});window.scrollTo(x,y);status(ok?'Copied.':'Copy is unavailable. Select the token text and press ⌘C or Ctrl+C.',!ok);}}
+function downloadText(text,name,type='application/json'){const url=URL.createObjectURL(new Blob([text],{type})),link=make('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('copy').onclick=()=>{if(result)copyText($('tokens').value);};$('download').onclick=()=>{if(result){const format=$('token-format').value;downloadText(result.exports[format],'colorstyle-tokens.'+(format==='dtcg'?'dtcg.json':format),['json','dtcg'].includes(format)?'application/json':'text/plain');}};
+$('export-draft').onclick=()=>{if(!model)return;setBusy(true);status('Exporting this draft without changing Figma…');post({type:'preview-export',request:request(),revision});};
+$('locate-guide').onclick=()=>post({type:'locate-guide',collection:$('collection').value.trim()});
+$('generate').onclick=()=>{if(!model||busy)return;setBusy(true);status('Checking assets before generation…');post({type:'review-generation',request:request(),revision});};
+function showReview(message){
+  review=message;$('review-summary').replaceChildren();for(const kind of ['styles','variables'])$('review-summary').append(make('p',kind[0].toUpperCase()+kind.slice(1)+': '+message.counts[kind].create+' new, '+message.counts[kind].update+' updated.'));$('review-summary').append(make('p','Destination: '+message.collection+(message.theme?' + '+message.collection+' Theme (Light/Dark)':'')),make('p',(message.counts.guide?'Palette snapshot replaced/created. ':'')+(message.counts.tokens?'Token frame replaced/created.':'')));
+  if(message.counts.variables.create+message.counts.variables.update)$('review-summary').append(make('p','Palette values target mode: '+message.paletteMode+'.'));for(const warning of message.warnings||[])$('review-summary').append(make('p',warning,'notice warning'));
+  if(message.gradients)$('review-summary').append(make('p',message.gradients+' selected gradients. CSS geometry is approximate.','notice warning'));
+  $('review-conflicts').replaceChildren();for(const conflict of message.conflicts)$('review-conflicts').append(make('li',conflict));$('review-update-label').hidden=!message.conflicts.length;$('review-update').checked=false;$('review-apply').disabled=!!message.conflicts.length;$('review-dialog').showModal();status('Review the planned changes.');
+}
+$('review-update').onchange=()=>{$('review-apply').disabled=review?.conflicts.length&&!$('review-update').checked;};
+function cancelReview(){clearRequest();if($('review-dialog').open)$('review-dialog').close();post({type:'cancel-review'});review=null;setBusy(false);status('Generation cancelled; no document changes.');}
+$('review-cancel').onclick=cancelReview;$('review-dialog').addEventListener('cancel',event=>{event.preventDefault();cancelReview();});
+$('review-apply').onclick=()=>{if(!review)return;$('review-dialog').close();status('Applying reviewed assets…');post({type:'apply-generation',id:review.id,updateConflicts:$('review-update').checked});};
+$('import-selection').onclick=()=>post({type:'import-selection'});$('import-document').onclick=()=>post({type:'import-document',collection:$('collection').value.trim()});
+function showSelection(message){
+  selectionCandidate=message;
+  $('import-list').replaceChildren();
+  const records=message.detectedColors||message.colors.map(hex=>({hex,alpha:1,sources:[]}));
+  $('import-count').textContent=records.length+' unique colors · '+(message.gradients||[]).length+' gradients · '+(message.nodeCount||0)+' layers.'+(message.imagePaints?' '+message.imagePaints+' image/video paints not sampled.':'')+(message.warnings?.length?' '+message.warnings.join(' '):'');
+  for(const [index,record]of records.entries()){
+    const color=record.hex,row=make('div',undefined,'import-item'),dot=make('span',undefined,'color-dot'),select=make('select');
+    dot.style.background=color;dot.style.opacity=record.alpha;select.dataset.color=color;
+    const label=color+(record.alpha<1?' · '+Math.round(record.alpha*100)+'% opacity':'');
+    select.setAttribute('aria-label','Use '+label+' as');
+    fillSelect(select,[{path:'',label:'Skip'},...ColorStyle.groups.map(key=>({path:key,label:ColorStyle.labels[key]}))],index<3?ColorStyle.groups[index]:'');
+    const text=make('span',label);text.title=(record.sources||[]).join('\n');row.append(dot,text,select);$('import-list').append(row);
+  }
+  if(!records.length)$('import-list').append(make('p',message.gradients?.length?'Gradients detected and included. Review names under Selected gradients.':'No stored paint colors or gradients found.','help'));
+  $('import-dialog').showModal();
+}
+function applyDetectedGradients(message){
+  state.gradients=message.gradients||[];$('gradients').hidden=!state.gradients.length;$('gradient-count').textContent='· '+state.gradients.length;$('gradient-list').replaceChildren();state.gradients.forEach((g,index)=>{const field=make('div',undefined,'field'),label=make('label','Gradient '+(index+1)),input=make('input');input.id='gradient-name-'+index;label.htmlFor=input.id;input.value=g.name;input.maxLength=40;input.onchange=()=>{g.name=input.value.trim();changed();};field.append(label,input);$('gradient-list').append(field);});
+  $('include-gradients').checked=state.gradients.length>0;
+}
+function cancelSelection(){selectionCandidate=null;post({type:'cancel-selection'});$('import-dialog').close();}
+$('import-cancel').onclick=cancelSelection;$('import-dialog').addEventListener('cancel',event=>{event.preventDefault();cancelSelection();});$('import-apply').onclick=()=>{const chosen=new Set();for(const select of $('import-list').querySelectorAll('select')){if(!select.value)continue;if(chosen.has(select.value)){status('Choose each destination only once.',true);return;}chosen.add(select.value);}for(const select of $('import-list').querySelectorAll('select'))if(select.value){$(select.value+'-hex').value=select.dataset.color;$(select.value+'-picker').value=select.dataset.color;}post({type:'confirm-selection',importId:selectionCandidate.importId});
+  applyDetectedGradients(selectionCandidate);selectionCandidate=null;
+  $('import-dialog').close();changed();status('Selected colors and gradients applied.');};
+function snapshot(){return {version:2,request:request()};}
+function persist(){clearTimeout(persistTimer);persistTimer=setTimeout(()=>{const workspace={draft:snapshot(),saved:state.saved};try{localStorage.setItem('colorstyle-v2',JSON.stringify(workspace));}catch(error){}post({type:'save-settings',state:workspace});},300);}
+function restore(snapshotValue,allowInvalidDraft=false){
+  if(snapshotValue?.version!==2||!snapshotValue.request)throw new Error('Use a ColorStyle Pro v2 settings file.');
+  const data=snapshotValue.request;
+  // Validate before replacing the current draft. Empty saved drafts are allowed.
+  if(data.colors?.primary&&!allowInvalidDraft)ColorStyle.build(data);
+  if(!data.colors||!data.options||!Array.isArray(data.custom)||data.custom.length>20)throw new Error('Invalid palette settings.');
+  for(const key of ColorStyle.groups){const raw=data.colors[key]||'';if(typeof raw!=='string')throw new Error('Invalid saved colors.');$(key+'-hex').value=raw;$(key+'-picker').value=ColorStyle.normalize(raw)||'#ffffff';}
+  state.custom=data.custom.map(g=>({name:String(g.name),color:String(g.color||'')}));state.overrides={...(data.overrides||{})};state.mappings=JSON.parse(JSON.stringify(data.mappings||{}));state.gradients=[];$('gradients').hidden=true;$('include-gradients').checked=false;
+  const o=data.options;$('dark-shades-toggle').value=o.darkShades;$('naming-convention').value=o.naming;$('collection').value=o.collection||'Color';$('style-prefix').value=o.stylePrefix||'';$('algorithm').value=o.algorithm||'rgb';for(const [id,key,defaultValue]of [['create-variables','createVariables',true],['create-styles','createStyles',true],['create-guide','createGuide',true],['create-token-frame','createTokenFrame',false],['create-themes','createThemes',false]])$(id).checked=o[key]??defaultValue;
+  if(['css','scss','json','dtcg'].includes(data.format))$('token-format').value=data.format;touched.clear();renderCustom();changed();
+}
+function renderSaved(){fillSelect($('saved-palettes'),[{path:'',label:'Choose a palette'},...state.saved.map((s,i)=>({path:String(i),label:s.name}))],'');}
+$('save-palette').onclick=()=>{const name=$('saved-name').value.trim();if(!name){status('Enter a palette name.',true);return;}if(!model){status('Fix the palette before saving.',true);return;}const existing=state.saved.findIndex(s=>s.name===name);const item={name,snapshot:snapshot()};if(existing>=0)state.saved[existing]=item;else{if(state.saved.length>=30){status('Maximum 30 saved palettes.',true);return;}state.saved.push(item);}renderSaved();persist();status('Saved '+name+'.');};
+$('load-palette').onclick=()=>{const value=$('saved-palettes').value;if(value==='')return;try{restore(state.saved[Number(value)].snapshot);status('Saved palette loaded.');}catch(error){status(error.message,true);}};
+$('delete-palette').onclick=()=>{const value=$('saved-palettes').value;if(value==='')return;state.saved.splice(Number(value),1);renderSaved();persist();status('Removed the saved palette. Current draft is unchanged.');};
+$('reset').onclick=()=>{restore({version:2,request:{colors:{primary:''},custom:[],options:{darkShades:'light-only',naming:'group/level',collection:'Color',algorithm:'rgb',createVariables:true,createStyles:true,createGuide:true},format:'css'}});status('Draft reset. Saved palettes remain available.');};
+$('export-settings').onclick=()=>downloadText(JSON.stringify(snapshot(),null,2),'colorstyle-palette.json');$('import-settings').onclick=()=>$('settings-file').click();$('settings-file').onchange=async()=>{const file=$('settings-file').files[0];if(!file)return;try{if(file.size>250000)throw new Error('Settings file is too large.');restore(JSON.parse(await file.text()));status('Palette settings imported.');}catch(error){status(error.message,true);}finally{$('settings-file').value='';}};
+window.addEventListener('message',event=>{
+  const message=event.data?.pluginMessage;
+  if(!message||typeof message!=='object'||message.clientId!==clientId)return;
+  const operationReply=['operation-progress','generation-review','generation-complete','export-complete','generation-error'].includes(message.type)||(message.type==='operation-error'&&['review-generation','apply-generation','preview-export'].includes(message.operation));
+  if(operationReply&&message.requestId!==activeRequest?.id)return;
+  if(message.type==='operation-progress'){status(message.message);return;}
+  if(operationReply)clearRequest();
+  try {
+
+  if(message.type==='settings-loaded'){if(revision===0&&!$('primary-hex').value&&message.state){try{state.saved=Array.isArray(message.state.saved)?message.state.saved.slice(0,30):[];renderSaved();if(message.state.draft)restore(message.state.draft,true);}catch(error){status('Saved settings could not be loaded: '+error.message,true);}}}
+  if(message.type==='generation-review'){if(message.revision!==revision){cancelReview();return;}showReview(message);}
+  if(message.type==='generation-complete'||message.type==='export-complete'){result={exports:message.exports,revision:message.revision,source:message.source};setBusy(false);review=null;renderExport();chooseView('export');status(message.message||'Draft exported without document changes.');}
+  if(message.type==='generation-error'||message.type==='operation-error'){if(!['save-settings','init'].includes(message.operation)){if($('review-dialog').open)$('review-dialog').close();review=null;setBusy(false);}status(message.message,true);}
+  if(message.type==='selection-detected'){
+    $('selection-summary').textContent=message.nodeCount?message.colorCount+' colors · '+message.gradientCount+' gradients detected in '+message.nodeCount+' layers. Use frame colors to review them.':'Select a frame to detect its colors and gradients.';
+    if(message.warnings?.length)$('selection-summary').textContent+=' '+message.warnings.join(' ');
+  }
+  if(message.type==='selection-imported')showSelection(message);
+  if(message.type==='document-imported'){for(const [key,value]of Object.entries(message.colors))if(ColorStyle.groups.includes(key)){$(key+'-hex').value=value;$(key+'-picker').value=value;}state.overrides={};state.mappings={};changed();status('Base colors loaded. Review them before generating.');}
+  }catch(error){
+    clearRequest();review=null;
+    if($('review-dialog').open)$('review-dialog').close();
+    setBusy(false);status('Could not process Figma’s reply: '+error.message+'. Close and reopen the plugin if this continues.',true);
+    console.error(error);
+  }
+});
+render();post({type:'init'});
+
+</script>
+</body>
+</html>

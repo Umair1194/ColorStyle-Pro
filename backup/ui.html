@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    /* Base styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(245,245,245,0.65));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      border: 1px solid rgba(200, 200, 200, 0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    h2, h3 { text-align: center; margin: 0; }
+    h2 { font-size: 16px; font-weight: 600; color: #111; }
+    h3 { font-size: 14px; font-weight: 600; color: #111; }
+
+    /* Grid for color fields */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 12px; font-weight: 500; color: #333; }
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      height: 40px;
+      box-sizing: border-box;
+    }
+    input[type="color"] {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      padding: 0;
+      cursor: pointer;
+    }
+    input[type="text"], input[type="number"] {
+      flex: 1;
+      border: none;
+      font-size: 13px;
+      background: none;
+      outline: none;
+      height: 100%;
+    }
+    input[id="shade-count"] {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+     select {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      font-size: 13px;
+      height: 40px;
+      /* Smaller chevron icon */
+      background-image: url("data:image/svg+xml,%3Csvg%20width='10'%20height='6'%20viewBox='0%200%2010%206'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M0,0%20L5,6%20L10,0Z'%20fill='%23666'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px 6px;
+    }
+    .error { color: #E53935; font-size: 11px; margin-top: 2px; }
+
+    /* Advanced options */
+    .options { border-top: 1px solid rgba(200,200,200,0.3); padding-top: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+    /* Preview panel */
+    .preview { border-top:1px solid rgba(200,200,200,0.3); padding-top:16px; }
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(40px,1fr)); gap:8px; }
+    .swatch { width:40px; height:40px; border-radius:4px; position:relative; }
+    .swatch .ratio { position:absolute; bottom:2px; right:2px; font-size:8px; background:rgba(0,0,0,0.5); color:white; padding:1px 2px; border-radius:2px; }
+
+    /* Unified action button */
+    #generate { padding:12px; font-size:14px; font-weight:600; background-color:#007aff; color:#fff; border:none; border-radius:8px; cursor:pointer; transition:background 0.2s; }
+    #generate:disabled { opacity:0.6; cursor:default; }
+    #generate:hover:not(:disabled) { background-color:#0061cc; }
+
+    @media (max-width:420px) { .grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎨 Brand Color Palette</h2>
+    <div class="grid"></div>
+
+    <!-- Advanced Options with Export Format -->
+    <div class="options">
+      <h3>Advanced Options</h3>
+      <div class="field">
+        <label for="dark-shades-toggle">Include Dark Shades</label>
+        <select id="dark-shades-toggle"></select>
+      </div>
+      <div class="field">
+        <label for="shade-count">Total Steps</label>
+        <input type="number" id="shade-count" />
+      </div>
+      <div class="field">
+        <label for="naming-convention">Naming Convention</label>
+        <select id="naming-convention"></select>
+      </div>
+      <div class="field">
+        <label for="token-format">Export Format</label>
+        <select id="token-format"></select>
+      </div>
+    </div>
+
+    <!-- Preview & WCAG Contrast Ratio -->
+    <div class="preview">
+      <h3>Live Preview & WCAG Contrast Ratio</h3>
+      <div class="swatch-grid" id="swatch-grid"></div>
+    </div>
+
+    <!-- Combined Generate & Export -->
+    <button id="generate" disabled>Generate & Export Tokens</button>
+  </div>
+
+  <script>
+    const colorNames = ["Primary","Secondary","Grey","Info","Success","Alert","Danger"];
+    const grid = document.querySelector('.grid');
+    const generateBtn = document.getElementById('generate');
+    const swatchGrid = document.getElementById('swatch-grid');
+    const darkToggle = document.getElementById('dark-shades-toggle');
+    const shadeCount = document.getElementById('shade-count');
+    const naming = document.getElementById('naming-convention');
+    const tokenFormat = document.getElementById('token-format');
+
+    // Populate selects with options
+    darkToggle.innerHTML = `<option value="light-only">Light Tints (50–500)</option><option value="with-dark">Include Dark Shades (600–900)</option>`;
+    shadeCount.min = 2; shadeCount.max = 20; shadeCount.value = 6;
+    naming.innerHTML = `<option value="group/level">Group / Level</option><option value="brand.group.level">brand.group.level</option>`;
+    tokenFormat.innerHTML = `<option value="css">CSS</option><option value="json">JSON</option><option value="scss">SCSS</option>`;
+
+    // Build color fields
+    const tpl = document.createElement('div');
+    tpl.className='field';
+    tpl.innerHTML = `<label></label><div class="input-wrapper"><input type="color"/><input type="text" placeholder="#FFFFFF"/></div><div class="error"></div>`;
+    colorNames.forEach(name => {
+      const clone = tpl.cloneNode(true);
+      clone.querySelector('label').textContent = name + (['Primary','Secondary','Grey'].includes(name)? ' *':'');
+      grid.appendChild(clone);
+      const [colorInput,textInput] = clone.querySelectorAll('input');
+      const errorDiv = clone.querySelector('.error');
+      colorInput.addEventListener('input', ()=>{ textInput.value=colorInput.value.toUpperCase(); validate(); render(); });
+      textInput.addEventListener('input', ()=>{ const v=textInput.value.trim().toUpperCase(); if(/^#([0-9A-F]{6})$/.test(v)){ colorInput.value=v; errorDiv.textContent=''; } else errorDiv.textContent = v? 'Invalid hex':''; validate(); render(); });
+    });
+
+    function getColors(){ const vals={}; [...grid.children].forEach(field=>{ const key=field.querySelector('label').textContent.replace(' *','').toLowerCase(); vals[key]=field.querySelector('input[type=text]').value.trim().toUpperCase(); }); return vals; }
+    function validate(){ const c=getColors(); const ok=c.primary&&c.secondary&&c.grey&&['primary','secondary','grey'].every(k=>/^#([0-9A-F]{6})$/.test(c[k])); generateBtn.disabled=!ok; }
+    function render(){ swatchGrid.innerHTML=''; const c=getColors(); Object.values(c).forEach(hex=>{ if(/^#([0-9A-F]{6})$/.test(hex)){ const d=document.createElement('div'); d.className='swatch'; d.style.background=hex; const r=document.createElement('div'); r.className='ratio'; r.textContent='WCAG Ratio –'; d.appendChild(r); swatchGrid.appendChild(d);} }); }
+
+    generateBtn.onclick = () => {
+      const colors = getColors();
+      const options = { darkShades: darkToggle.value, steps: +shadeCount.value, naming: naming.value };
+      parent.postMessage({ pluginMessage: { type: 'generate-and-export', colors, options, format: tokenFormat.value } }, '*');
+    }; 
+  </script>
+</body>
+</html>

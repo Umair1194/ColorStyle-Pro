@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;color:#111;background:linear-gradient(135deg,#fff,#fafafa)}
+.container{padding:20px;display:flex;flex-direction:column;gap:24px;min-height:100vh;border-radius:12px;border:1px solid #eee}
+h2,h3{text-align:center;margin:0}h2{font-size:16px;line-height:22px;font-weight:700;margin:0 0 0}h3{font-size:14px;line-height:20px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr;gap:24px}.field{display:flex;flex-direction:column;gap:6px}label{font-size:12px;font-weight:500;color:#333;line-height:16px}
+.input-wrapper{display:flex;align-items:center;gap:8px;padding:4px 12px;border:1px solid #ccc;border-radius:8px;background:#fff;height:40px}
+input[type=color]{width:32px;height:32px;flex-shrink:0;border:0;border-radius:6px;background:#eee;padding:4px;cursor:pointer}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:1px solid #777;border-radius:0}
+input[type=text]{min-width:0;width:100%;border:0;font:13px Inter,system-ui,sans-serif;background:none;height:100%;color:#333}input::placeholder{color:#777;opacity:1}
+select,input[type=number]{width:100%;font:13px Inter,system-ui,sans-serif;color:#111;height:33px;border:1px solid #ccc;border-radius:8px;background:#fff;padding:6px 12px}
+select{appearance:none;cursor:pointer;padding-right:30px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0L5 6L10 0Z' fill='%23666'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid #007aff;outline-offset:2px}.input-wrapper:focus-within{border-color:#007aff}.input-wrapper:has([aria-invalid=true]){border-color:#b42318}
+.error{color:#b42318;font-size:11px}.error:empty{display:none}.help{font-size:11px;line-height:14px;color:#666;margin:0}.options{border-top:1px solid #eee;padding-top:16px;display:flex;flex-direction:column;gap:16px;margin-top:8px}
+.check{display:flex;align-items:flex-start;gap:10px;font-size:16px;line-height:21px;color:#000;font-weight:400}.check input{accent-color:#007aff;width:16px;height:16px;margin:2px 3px 0 4px;flex-shrink:0}
+.preview{border-top:1px solid #eee;padding-top:16px}.preview h3{margin-bottom:0}.preview-group{margin-top:16px}.preview-group h4{font-size:12px;margin:0 0 6px}.swatch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.swatch{border:1px solid #ddd;border-radius:4px;padding:6px 4px;min-height:65px;font-size:9px;line-height:13px;text-align:center}.swatch span{display:block}
+button{font:600 14px Inter,system-ui,sans-serif;border:0;border-radius:8px;cursor:pointer}#generate{padding:12px;background:#007aff;color:#fff;min-height:40px}#generate:disabled{background:#65aaff;cursor:default}#generate:hover:not(:disabled){background:#0061cc}
+#status{font-size:12px;line-height:17px;margin:0}#status:empty{display:none}#export-panel{border-top:1px solid #eee;padding-top:12px}#export-panel[hidden]{display:none}textarea{width:100%;height:140px;margin:8px 0;font:11px monospace;border:1px solid #ccc;border-radius:6px;padding:8px}.actions{display:flex;gap:8px}.actions button{padding:8px;background:#eaf3ff;color:#0055bb;font-size:12px}
+</style>
+</head>
+<body>
+<form class="container" id="palette-form" novalidate>
+<h2>🎨 Brand Color Palette</h2><div class="grid" id="color-fields"></div>
+<div class="options"><h3>Advanced Options</h3>
+<div class="field"><label for="dark-shades-toggle">Include Dark Shades</label><select id="dark-shades-toggle" aria-describedby="dark-help"><option value="light-only">Light Tints (50–500)</option><option value="with-dark">Include Dark Shades (600–900)</option></select><p class="help" id="dark-help">Dark mode shades (600–900) if enabled.</p></div>
+<div class="field"><label for="shade-count">Total Steps</label><input type="number" id="shade-count" min="2" max="20" value="6" aria-describedby="steps-help"><p class="help" id="steps-help">UI-only preview; generation uses canonical 50–500 (and 600–900 if dark).</p></div>
+<div class="field"><label for="naming-convention">Naming Convention</label><select id="naming-convention"><option value="group/level">Group / Level</option><option value="brand.group.level">brand.group.level</option></select></div>
+<div class="field"><label for="token-format">Export Format</label><select id="token-format"><option value="css">CSS</option><option value="json">JSON</option><option value="scss">SCSS</option></select></div>
+<div class="field"><label for="create-variables">Figma Variables</label><label class="check"><input type="checkbox" id="create-variables" checked>Create/Update Figma Variables</label><p class="help">When enabled, writes Light (50–500) and Dark (600–900) to the Color collection and binds styles.</p></div>
+</div>
+<div class="preview"><h3>Live Preview &amp; WCAG Contrast Ratio</h3><div id="swatch-grid"></div></div>
+<button id="generate" type="submit" disabled>Generate &amp; Export Tokens</button>
+<p id="status" role="status" aria-live="polite"></p>
+<div id="export-panel" hidden><label for="tokens">Generated tokens</label><textarea id="tokens" readonly></textarea><div class="actions"><button type="button" id="copy">Copy tokens</button><button type="button" id="download">Download</button></div><p class="help">Contrast is measured against opaque white and black. AA normal text ≥ 4.5:1; AAA ≥ 7:1; AA large text ≥ 3:1.</p></div>
+</form>
+<script>
+const keys=['primary','secondary','grey','info','success','alert','danger'];
+const grid=document.getElementById('color-fields'), button=document.getElementById('generate'), preview=document.getElementById('swatch-grid');
+const dark=document.getElementById('dark-shades-toggle'), steps=document.getElementById('shade-count'), naming=document.getElementById('naming-convention'), format=document.getElementById('token-format'), variables=document.getElementById('create-variables'), status=document.getElementById('status');
+let busy=false,exportFormat='css';
+const valid=v=>/^#[0-9a-f]{6}$/i.test(v);
+for(const key of keys){
+ const field=document.createElement('div');field.className='field';
+ const title=key[0].toUpperCase()+key.slice(1),required=keys.indexOf(key)<3;
+ field.innerHTML=`<label for="${key}-hex">${title}${required?' *':''}</label><div class="input-wrapper"><input type="color" id="${key}-picker" value="#ffffff" aria-label="${title} color picker"><input type="text" id="${key}-hex" placeholder="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off" aria-describedby="${key}-error" ${required?'required':''}></div><div class="error" id="${key}-error"></div>`;
+ grid.appendChild(field);
+ const picker=field.querySelector('input[type=color]'),hex=field.querySelector('input[type=text]');
+ picker.addEventListener('input',()=>{hex.value=picker.value.toUpperCase();update()});
+ hex.addEventListener('input',()=>{if(valid(hex.value.trim()))picker.value=hex.value.trim();update()});
+ hex.addEventListener('blur',()=>{hex.value=hex.value.trim().toUpperCase();update()});
+}
+function colors(){return Object.fromEntries(keys.map(k=>[k,document.getElementById(k+'-hex').value.trim().toUpperCase()]))}
+function rgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)}
+function luminance(c){return c.map(v=>v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4)).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0)}
+function ratio(c,background){const a=luminance(c),b=luminance(background);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)}
+function toHex(c){return '#'+c.map(v=>Math.round(v*255).toString(16).padStart(2,'0')).join('').toUpperCase()}
+function update(){
+ const c=colors();let ok=true;
+ for(const key of keys){const value=c[key],bad=!!value&&!valid(value);document.getElementById(key+'-error').textContent=bad?'Use a six-digit hex, e.g. #3366FF.':'';document.getElementById(key+'-hex').setAttribute('aria-invalid',String(bad));if(bad||(!value&&keys.indexOf(key)<3))ok=false;}
+ button.disabled=busy||!ok||!steps.checkValidity();preview.replaceChildren();
+ const count=Math.min(20,Math.max(2,Number(steps.value)||6));
+ for(const key of keys){if(!valid(c[key]))continue;const base=rgb(c[key]),group=document.createElement('section');group.className='preview-group';const heading=document.createElement('h4');heading.textContent=key[0].toUpperCase()+key.slice(1);group.appendChild(heading);const row=document.createElement('div');row.className='swatch-grid';
+ // At six steps, match canonical generation exactly; other counts interpolate preview only.
+ const weights=count===6?[.95,.85,.70,.55,.35,0]:Array.from({length:count},(_,i)=>.95*(1-i/(count-1)));
+ const shades=weights.map((w,i)=>({color:base.map(v=>v*(1-w)+w),level:count===6?[50,100,200,300,400,500][i]:'Tint '+(i+1)}));
+ if(dark.value==='with-dark') [.10,.20,.30,.45].forEach((w,i)=>shades.push({color:base.map(v=>v*(1-w)),level:600+i*100}));
+ for(const shade of shades){const hex=toHex(shade.color),c=rgb(hex),w=ratio(c,[1,1,1]),b=ratio(c,[0,0,0]),best=Math.max(w,b),tile=document.createElement('div');tile.className='swatch';tile.style.background=hex;tile.style.color=w>=b?'#fff':'#000';tile.innerHTML=`<span>${shade.level} · ${hex}</span><span>White ${w.toFixed(2)}:1</span><span>Black ${b.toFixed(2)}:1</span><span>${w>=b?'White':'Black'}: ${best>=7?'AAA':best>=4.5?'AA':best>=3?'AA large':'Fail'}</span>`;row.appendChild(tile)}group.appendChild(row);preview.appendChild(group);
+ }
+}
+[dark,steps,naming,format,variables].forEach(el=>el.addEventListener('input',update));
+document.getElementById('palette-form').addEventListener('submit',event=>{event.preventDefault();update();if(button.disabled)return;busy=true;button.textContent='Generating…';update();status.textContent='Creating styles, variables, guide and tokens…';parent.postMessage({pluginMessage:{type:'generate-and-export',colors:colors(),options:{darkShades:dark.value,steps:Number(steps.value),naming:naming.value,createVariables:variables.checked},format:format.value}},'*')});
+window.addEventListener('message',event=>{if(event.source!==parent)return;const msg=event.data&&event.data.pluginMessage;if(!msg||!['generation-complete','generation-error'].includes(msg.type))return;busy=false;button.textContent='Generate & Export Tokens';status.textContent=msg.message;status.style.color=msg.type==='generation-error'?'#b42318':'#333';if(msg.type==='generation-complete'){exportFormat=msg.format;document.getElementById('tokens').value=msg.tokens;document.getElementById('export-panel').hidden=false}update()});
+document.getElementById('copy').addEventListener('click',async()=>{const tokens=document.getElementById('tokens');try{await navigator.clipboard.writeText(tokens.value);status.textContent='Tokens copied.'}catch(e){tokens.focus();tokens.select();status.textContent=document.execCommand('copy')?'Tokens copied.':'Press Ctrl+C or ⌘C to copy selected tokens.'}});
+document.getElementById('download').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([document.getElementById('tokens').value],{type:exportFormat==='json'?'application/json':'text/plain'})),a=document.createElement('a');a.href=url;a.download='colorstyle-tokens.'+exportFormat;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+update();
+</script>
+</body>
+</html>
